@@ -54,20 +54,37 @@ namespace Clave.ExtensionMethods
         /// <summary>
         /// Returns an enumerable containing only items where the map function returns a non-null value
         /// </summary>
-        public static IEnumerable<T> WhereNotNull<T, TProp>(this IEnumerable<T> source, Func<T, TProp> map)
-            where TProp : class
+        public static IEnumerable<T> WhereNotNull<T, TKey>(this IEnumerable<T> source, Func<T, TKey> map)
+            where TKey : class
             => source.WhereNot(x => map(x) is null);
 
         /// <summary>
         /// Converts the enumerable to a ReadOnlyCollection
         /// </summary>
         public static IReadOnlyCollection<T> ToReadOnlyCollection<T>(this IEnumerable<T> source)
-            => source.ToList();
+            => source is IReadOnlyCollection<T> collection ? collection : source.ToList();
 
         /// <summary>
         /// Converts the enumerable to a ReadOnlyList
         /// </summary>
         public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
-            => source.ToList();
+            => source is IReadOnlyList<T> list ? list : source.ToList();
+
+        /// <summary>
+        /// Returns only the items that have distinct values returned by the keySelector
+        /// </summary>
+        public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
+            => source.Distinct(new GeneralPropertyComparer<T,TKey>(keySelector));
+
+        private class GeneralPropertyComparer<T, TKey> : IEqualityComparer<T>
+        {
+            private readonly Func<T, TKey> _expr;
+
+            public GeneralPropertyComparer(Func<T, TKey> expr) => _expr = expr;
+
+            public bool Equals(T x, T y) => EqualityComparer<TKey>.Default.Equals(_expr(x), _expr(y));
+
+            public int GetHashCode(T obj) => EqualityComparer<TKey>.Default.GetHashCode(_expr(obj));
+        }
     }
 }

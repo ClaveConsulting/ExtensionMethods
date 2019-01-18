@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Clave.ExtensionMethods
 {
@@ -17,6 +18,7 @@ namespace Clave.ExtensionMethods
             => initial
                 .And(values)
                 .WhereNot(string.IsNullOrWhiteSpace)
+                .Select(s => s.Trim())
                 .Join(" ");
 
         /// <summary>
