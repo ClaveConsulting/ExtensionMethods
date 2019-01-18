@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net46</TargetFrameworks>
+    <Version>0.0.1</Version>
+    <DebugType>embedded</DebugType>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Title>Clave.ExtensionMethods</Title>
+    <PackageIconUrl>https://raw.githubusercontent.com/ClaveConsulting/logo/master/png/logo_noText.png</PackageIconUrl>
+    <RepositoryUrl>https://github.com/ClaveConsulting/ExtensionMethods</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/ClaveConsulting/ExtensionMethods</PackageProjectUrl>
+    <Authors>Clave Consulting</Authors>
+    <Description>A collection of useful extension methods</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+</Project>
