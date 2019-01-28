@@ -52,10 +52,24 @@ namespace Clave.ExtensionMethods
             => source.WhereNot(x => x is null);
 
         /// <summary>
+        /// Returns an enumerable containing only non-null items
+        /// </summary>
+        public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
+            where T : struct
+            => source.WhereNot(x => x is null);
+
+        /// <summary>
         /// Returns an enumerable containing only items where the map function returns a non-null value
         /// </summary>
         public static IEnumerable<T> WhereNotNull<T, TKey>(this IEnumerable<T> source, Func<T, TKey> map)
             where TKey : class
+            => source.WhereNot(x => map(x) is null);
+
+        /// <summary>
+        /// Returns an enumerable containing only items where the map function returns a non-null value
+        /// </summary>
+        public static IEnumerable<T> WhereNotNull<T, TKey>(this IEnumerable<T> source, Func<T, TKey?> map)
+            where TKey : struct
             => source.WhereNot(x => map(x) is null);
 
         /// <summary>
