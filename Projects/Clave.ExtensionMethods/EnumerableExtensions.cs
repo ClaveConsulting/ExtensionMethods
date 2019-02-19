@@ -56,7 +56,7 @@ namespace Clave.ExtensionMethods
         /// </summary>
         public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> source)
             where T : struct
-            => source.WhereNot(x => x is null);
+            => source.WhereNot(x => x is null) as IEnumerable<T>;
 
         /// <summary>
         /// Returns an enumerable containing only items where the map function returns a non-null value
@@ -83,6 +83,19 @@ namespace Clave.ExtensionMethods
         /// </summary>
         public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
             => source is IReadOnlyList<T> list ? list : source.ToList();
+
+        /// <summary>
+        /// Zips together two lists returning a tuple of their values
+        /// </summary>
+        public static IEnumerable<(T1, T2)> Zip<T1, T2>(this IEnumerable<T1> left, IEnumerable<T2> right) 
+            => left.Zip(right, ValueTuple.Create);
+
+        /// <summary>
+        /// Joins together two lists returning a tuple of their values using the key selectors
+        /// </summary>
+        public static IEnumerable<(T1, T2)> Join<T1, T2, TKey>(this IEnumerable<T1> left, IEnumerable<T2> right, Func<T1, TKey> leftKey, Func<T2, TKey> rightKey)
+            => left.Join(right, leftKey, rightKey, ValueTuple.Create);
+            
 
         /// <summary>
         /// Returns only the items that have distinct values returned by the keySelector
