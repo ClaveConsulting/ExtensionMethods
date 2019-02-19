@@ -24,6 +24,18 @@ namespace Clave.ExtensionMethods.Tests
             "a ".ConcatWithSpace("  b  ", "  ", " c").ShouldBe("a b c");
         }
 
+        [Test]
+        public void TestCommaSeparate()
+        {
+            "a".ConcatWithComma("b", "c").ShouldBe("a, b, c");
+        }
+
+        [Test]
+        public void TestCommaSeparateWithSpacyStrings()
+        {
+            "a ".ConcatWithComma("  b  ", "  ", " c").ShouldBe("a, b, c");
+        }
+
         [TestCase(null, ExpectedResult = null)]
         [TestCase("", ExpectedResult = null)]
         [TestCase("a", ExpectedResult = "a")]

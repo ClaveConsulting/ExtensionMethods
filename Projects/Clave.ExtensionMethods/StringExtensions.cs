@@ -22,6 +22,16 @@ namespace Clave.ExtensionMethods
                 .Join(" ");
 
         /// <summary>
+        /// Joins a list of strings, except null or empty values, with ", "
+        /// </summary>
+        public static string ConcatWithComma(this string initial, params string[] values)
+            => initial
+                .And(values)
+                .WhereNot(string.IsNullOrWhiteSpace)
+                .Select(s => s.Trim())
+                .Join(", ");
+
+        /// <summary>
         /// Returns null if the string is an empty string
         /// </summary>
         public static string ToNullIfEmpty(this string value)
