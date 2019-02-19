@@ -24,6 +24,16 @@ namespace Clave.ExtensionMethods.Tests
         }
 
         [Test]
+        public void TestAndMany()
+        {
+            var list = "some".And("thing", "else");
+
+            list.ShouldContain("some");
+            list.ShouldContain("thing");
+            list.ShouldContain("else");
+        }
+
+        [Test]
         public void TestNotAny()
         {
             Empty.Array<string>().NotAny().ShouldBeTrue();

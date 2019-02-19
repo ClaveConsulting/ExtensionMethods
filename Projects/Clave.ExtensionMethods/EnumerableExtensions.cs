@@ -17,6 +17,15 @@ namespace Clave.ExtensionMethods
         /// <summary>
         /// Returns an enumerable of the initial item and other items
         /// </summary>
+        public static IEnumerable<T> And<T>(this T initial, T item)
+        {
+            yield return initial;
+            yield return item;
+        }
+
+        /// <summary>
+        /// Returns an enumerable of the initial item and other items
+        /// </summary>
         public static IEnumerable<T> And<T>(this T initial, params T[] items)
         {
             yield return initial;
