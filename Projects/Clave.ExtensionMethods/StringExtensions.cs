@@ -14,9 +14,8 @@ namespace Clave.ExtensionMethods
         /// <summary>
         /// Joins a list of strings, except null or empty values, with a single space
         /// </summary>
-        public static string ConcatWithSpace(this string initial, params string[] values)
-            => initial
-                .And(values)
+        public static string JoinWithSpace(this IEnumerable<string> values)
+            => values
                 .WhereNot(string.IsNullOrWhiteSpace)
                 .Select(s => s.Trim())
                 .Join(" ");
@@ -24,12 +23,27 @@ namespace Clave.ExtensionMethods
         /// <summary>
         /// Joins a list of strings, except null or empty values, with ", "
         /// </summary>
-        public static string ConcatWithComma(this string initial, params string[] values)
-            => initial
-                .And(values)
+        public static string JoinWithComma(this IEnumerable<string> values)
+            => values
                 .WhereNot(string.IsNullOrWhiteSpace)
                 .Select(s => s.Trim())
                 .Join(", ");
+
+        /// <summary>
+        /// Joins a list of strings, except null or empty values, with a single space
+        /// </summary>
+        public static string ConcatWithSpace(this string initial, params string[] values)
+            => initial
+                .And(values)
+                .JoinWithSpace();
+
+        /// <summary>
+        /// Joins a list of strings, except null or empty values, with ", "
+        /// </summary>
+        public static string ConcatWithComma(this string initial, params string[] values)
+            => initial
+                .And(values)
+                .JoinWithComma();
 
         /// <summary>
         /// Returns null if the string is an empty string
