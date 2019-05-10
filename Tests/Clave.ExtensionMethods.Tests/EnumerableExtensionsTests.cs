@@ -87,6 +87,16 @@ namespace Clave.ExtensionMethods.Tests
             result.ShouldContain(s => s.Prop == "b");
         }
 
+        [Test]
+        public void TestGroupByProp()
+        {
+            var result = new Foo("12").And(new Foo("13"), new Foo("22"), new Foo("21")).GroupByProp(s => s.Prop, s => s[0]);
+
+            result.Count().ShouldBe(2);
+            result.First().Key.ShouldBe("12");
+            result.Last().Key.ShouldBe("22");
+        }
+
         public class Foo
         {
             public string Prop { get; }

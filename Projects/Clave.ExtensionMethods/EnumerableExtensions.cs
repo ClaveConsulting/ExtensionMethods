@@ -96,7 +96,7 @@ namespace Clave.ExtensionMethods
         /// <summary>
         /// Zips together two lists returning a tuple of their values
         /// </summary>
-        public static IEnumerable<(T1, T2)> Zip<T1, T2>(this IEnumerable<T1> left, IEnumerable<T2> right) 
+        public static IEnumerable<(T1, T2)> Zip<T1, T2>(this IEnumerable<T1> left, IEnumerable<T2> right)
             => left.Zip(right, ValueTuple.Create);
 
         /// <summary>
@@ -104,23 +104,18 @@ namespace Clave.ExtensionMethods
         /// </summary>
         public static IEnumerable<(T1, T2)> Join<T1, T2, TKey>(this IEnumerable<T1> left, IEnumerable<T2> right, Func<T1, TKey> leftKey, Func<T2, TKey> rightKey)
             => left.Join(right, leftKey, rightKey, ValueTuple.Create);
-            
 
         /// <summary>
         /// Returns only the items that have distinct values returned by the keySelector
         /// </summary>
         public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
-            => source.Distinct(new GeneralPropertyComparer<T,TKey>(keySelector));
+            => source.Distinct(CompareBy.Property(keySelector));
 
-        private class GeneralPropertyComparer<T, TKey> : IEqualityComparer<T>
-        {
-            private readonly Func<T, TKey> _expr;
+        /// <summary>
+        /// Groups by a property in the key
+        /// </summary>
+        public static IEnumerable<IGrouping<TKey, T>> GroupByProp<T, TKey, TProp>(this IEnumerable<T> source, Func<T, TKey> keySelector, Func<TKey, TProp> propSelector)
+            => source.GroupBy(keySelector, CompareBy.Property(propSelector));
 
-            public GeneralPropertyComparer(Func<T, TKey> expr) => _expr = expr;
-
-            public bool Equals(T x, T y) => EqualityComparer<TKey>.Default.Equals(_expr(x), _expr(y));
-
-            public int GetHashCode(T obj) => EqualityComparer<TKey>.Default.GetHashCode(_expr(obj));
-        }
     }
 }
