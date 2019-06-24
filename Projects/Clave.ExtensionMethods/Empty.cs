@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Clave.ExtensionMethods
 {
@@ -23,6 +25,16 @@ namespace Clave.ExtensionMethods
          * Get an empty ReadOnlyDictionary. The same instance is returned each time, per type TKey and TValue
          */
         public static IReadOnlyDictionary<TKey, TValue> ReadOnlyDictionary<TKey, TValue>() => Singleton<TKey, TValue>.Instance;
+
+        /**
+         * Get an empty string
+         */
+        public static string String => string.Empty;
+
+        /**
+         * Get an empty enumerable
+         */
+        public static IEnumerable<T> Enumerable<T>() => System.Linq.Enumerable.Empty<T>();
 
         private static class Singleton<T>
         {
