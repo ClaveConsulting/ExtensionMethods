@@ -36,6 +36,18 @@ namespace Clave.ExtensionMethods
         }
 
         /// <summary>
+        /// Returns an enumerable of the initial item and other items
+        /// </summary>
+        public static IEnumerable<T> And<T>(this T initial, IEnumerable<T> items)
+        {
+            yield return initial;
+            foreach (var item in items)
+            {
+                yield return item;
+            }
+        }
+
+        /// <summary>
         /// Returns true if the enumerable is empty
         /// </summary>
         public static bool NotAny<T>(this IEnumerable<T> source)
