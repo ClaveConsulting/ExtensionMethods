@@ -9,7 +9,13 @@ namespace Clave.ExtensionMethods.Tests
         [Test]
         public void TestJoin()
         {
-            new[] {"a", "b", "c"}.Join(" ").ShouldBe("a b c");
+            new[] { "a", "b", "c" }.Join(" ").ShouldBe("a b c");
+        }
+
+        [Test]
+        public void TestJoinInts()
+        {
+            new[] { 1, 2, 3 }.Join(" ").ShouldBe("1 2 3");
         }
 
         [Test]

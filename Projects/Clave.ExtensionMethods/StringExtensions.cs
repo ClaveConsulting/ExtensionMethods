@@ -8,7 +8,7 @@ namespace Clave.ExtensionMethods
         /// <summary>
         /// Joins a list of strings with a separator
         /// </summary>
-        public static string Join(this IEnumerable<string> values, string separator)
+        public static string Join<T>(this IEnumerable<T> values, string separator)
             => string.Join(separator, values);
 
         /// <summary>
