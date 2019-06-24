@@ -97,6 +97,16 @@ namespace Clave.ExtensionMethods.Tests
             result.Last().Key.ShouldBe("22");
         }
 
+        [Test]
+        public void TestSelectTuple()
+        {
+            var result = ("A", 1).And(("B", 2)).Select(Map).Join(",");
+
+            result.ShouldBe("A1,B2");
+        }
+
+        private string Map(string a, int b) => a + b;
+
         public class Foo
         {
             public string Prop { get; }

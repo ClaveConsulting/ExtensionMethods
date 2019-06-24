@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -128,6 +129,12 @@ namespace Clave.ExtensionMethods
         /// </summary>
         public static IEnumerable<IGrouping<TKey, T>> GroupByProp<T, TKey, TProp>(this IEnumerable<T> source, Func<T, TKey> keySelector, Func<TKey, TProp> propSelector)
             => source.GroupBy(keySelector, CompareBy.Property(propSelector));
+
+        /// <summary>
+        /// Projects each tuple pair of a sequence into a new form
+        /// </summary>
+        public static IEnumerable<TResult> Select<TA, TB, TResult>(this IEnumerable<(TA A, TB B)> source, Func<TA, TB, TResult> selector)
+            => source.Select(x => selector(x.A, x.B));
 
     }
 }
