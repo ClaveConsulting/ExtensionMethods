@@ -136,5 +136,11 @@ namespace Clave.ExtensionMethods
         public static IEnumerable<TResult> Select<TA, TB, TResult>(this IEnumerable<(TA A, TB B)> source, Func<TA, TB, TResult> selector)
             => source.Select(x => selector(x.A, x.B));
 
+        /// <summary>
+        /// Add an item to a list
+        /// </summary>
+        public static void AddTo<T>(this T item, IList<T> list)
+            => list.Add(item);
+
     }
 }
