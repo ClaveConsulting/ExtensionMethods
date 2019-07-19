@@ -137,9 +137,15 @@ namespace Clave.ExtensionMethods
             => source.Select(x => selector(x.A, x.B));
 
         /// <summary>
+        /// Projects each tuple triplet of a sequence into a new form
+        /// </summary>
+        public static IEnumerable<TResult> Select<TA, TB, TC, TResult>(this IEnumerable<(TA A, TB B, TC C)> source, Func<TA, TB, TC, TResult> selector)
+            => source.Select(x => selector(x.A, x.B, x.C));
+
+        /// <summary>
         /// Add an item to a list
         /// </summary>
-        public static void AddTo<T>(this T item, IList<T> list)
+        public static void AddTo<T>(this T item, ICollection<T> list)
             => list.Add(item);
 
     }
