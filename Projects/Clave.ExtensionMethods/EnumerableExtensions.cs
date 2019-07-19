@@ -148,5 +148,19 @@ namespace Clave.ExtensionMethods
         public static void AddTo<T>(this T item, ICollection<T> list)
             => list.Add(item);
 
+        /// <summary>
+        /// Perform an action for each item in the sequence without modifying it
+        /// </summary>
+        public static IEnumerable<T> Tap<T>(this IEnumerable<T> source, Action<T> action)
+            => source.Select(x => {
+                action(x);
+                return x;
+            });
+
+        /// <summary>
+        /// Perform an action for each item in the sequence
+        /// </summary>
+        public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
+            => source.Tap(action);
     }
 }
