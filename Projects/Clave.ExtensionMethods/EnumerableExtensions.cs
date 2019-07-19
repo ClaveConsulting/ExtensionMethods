@@ -161,6 +161,11 @@ namespace Clave.ExtensionMethods
         /// Perform an action for each item in the sequence
         /// </summary>
         public static void ForEach<T>(this IEnumerable<T> source, Action<T> action)
-            => source.Tap(action);
+        {
+            foreach (var item in source)
+            {
+                action(item);
+            }
+        }
     }
 }
