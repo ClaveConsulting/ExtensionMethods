@@ -3,12 +3,12 @@ using System.Collections.Generic;
 
 namespace Clave.ExtensionMethods
 {
-    public static class CompareBy
+    public static class Compare<T>
     {
-        public static GeneralPropertyComparer<TKey, TProp> Property<TKey, TProp>(Func<TKey, TProp> selector)
-            => new GeneralPropertyComparer<TKey, TProp>(selector);
+        public static GeneralPropertyComparer<TProp> Using<TProp>(Func<T, TProp> selector)
+            => new GeneralPropertyComparer<TProp>(selector);
 
-        public class GeneralPropertyComparer<T, TKey> : IEqualityComparer<T>
+        public class GeneralPropertyComparer<TKey> : IEqualityComparer<T>
         {
             private readonly Func<T, TKey> _expr;
 

@@ -154,6 +154,28 @@ Returns only the entries with a distinct key
 new []{new Foo("a"), new Foo("a"), new Foo("c")}.DistinctBy(f => f.Value); // "a", "c"
 ```
 
+This uses the `Compare<T>` utility, described below.
+
+### GroupByProp
+
+Groups by a property in the key
+
+```cs
+new []{new Foo("a1"), new Foo("a2"), new Foo("b1"), new Foo("b2")}.GroupByProp(s => s.Prop, s => s[0]); // ["a1", "a2"], ["b1", "b2"]
+```
+
+This uses the `Compare<T>` utility, described below.
+
+### ExceptBy
+
+Returns only the items that are not in the second set, using the selector
+
+```cs
+new []{new Foo("a"), new Foo("b"), new Foo("c")}.ExceptBy(new []{new Foo("b")}, f => f.Value); // "a", "c"
+```
+
+This uses the `Compare<T>` utility, described below.
+
 ### Zip
 
 Zip together two enumerables and return a tuple of the entries
@@ -248,6 +270,29 @@ This lets you await several tasks without using `Task.WhenAll`
 
 ```cs
 await DoSomethingAsync().And(DoSomethingElseAsync(), AtTheSameTimeAsync());
+```
+
+## Compare<T>
+
+This is a utility for creating an `IEqualityComparer` on the fly
+
+```cs
+var yearComparer = Compare<DateTime>.Using(date => date.Year);
+
+yearComparer.Equals(DateTime.Parse("2019-02-03"), DateTime.Parse("2019-08-19")); // true
+```
+
+It can be used anywhere that expects an `IEqualityComparer`, for example `.Distinct()` and even `Dictionary`.
+
+```cs
+var dictionary = new Dictionary<DateTime, string>(yearComparer)
+{
+    [DateTime.Parse("2019-02-06")] = "year 1",
+    [DateTime.Parse("2020-08-12")] = "year 2",
+};
+
+dictionary[DateTime.Now]; // "year 1" in 1019, "year 2" in 2020
+
 ```
 
 ## License

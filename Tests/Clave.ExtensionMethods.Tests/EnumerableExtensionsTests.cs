@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Shouldly;
 
 namespace Clave.ExtensionMethods.Tests
@@ -98,11 +100,38 @@ namespace Clave.ExtensionMethods.Tests
         }
 
         [Test]
+        public void TestExceptBy()
+        {
+            var second = new Foo("13").Only();
+            var result = new Foo("12").And(new Foo("13"), new Foo("22"), new Foo("21")).ExceptBy(second, s => s.Prop);
+
+            result.Count().ShouldBe(3);
+            result.First().Prop.ShouldBe("12");
+            result.Last().Prop.ShouldBe("21");
+        }
+
+        [Test]
         public void TestSelectTuple()
         {
             var result = ("A", 1).And(("B", 2)).Select(Map).Join(",");
 
             result.ShouldBe("A1,B2");
+        }
+
+        [Test]
+        public void TestCompare()
+        {
+            var yearComparer = Compare<DateTime>.Using(date => date.Year);
+
+            yearComparer.Equals(DateTime.Parse("2019-02-03"), DateTime.Parse("2019-08-19")).ShouldBeTrue();
+
+            var dictionary = new Dictionary<DateTime, string>(yearComparer)
+            {
+                [DateTime.Parse("2019-02-06")] = "year 1",
+                [DateTime.Parse("2020-08-12")] = "year 2",
+            };
+
+            dictionary[DateTime.Now].ShouldBe("year 1");
         }
 
         private string Map(string a, int b) => a + b;

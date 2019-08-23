@@ -121,14 +121,20 @@ namespace Clave.ExtensionMethods
         /// <summary>
         /// Returns only the items that have distinct values returned by the keySelector
         /// </summary>
-        public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> keySelector)
-            => source.Distinct(CompareBy.Property(keySelector));
+        public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
+            => source.Distinct(Compare<T>.Using(selector));
 
         /// <summary>
         /// Groups by a property in the key
         /// </summary>
         public static IEnumerable<IGrouping<TKey, T>> GroupByProp<T, TKey, TProp>(this IEnumerable<T> source, Func<T, TKey> keySelector, Func<TKey, TProp> propSelector)
-            => source.GroupBy(keySelector, CompareBy.Property(propSelector));
+            => source.GroupBy(keySelector, Compare<TKey>.Using(propSelector));
+
+        /// <summary>
+        /// Returns only the items that are not in the second set, using the selector
+        /// </summary>
+        public static IEnumerable<T> ExceptBy<T, TKey>(this IEnumerable<T> source, IEnumerable<T> second, Func<T, TKey> selector)
+            => source.Except(second, Compare<T>.Using(selector));
 
         /// <summary>
         /// Projects each tuple pair of a sequence into a new form
