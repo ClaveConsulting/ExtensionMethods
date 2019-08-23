@@ -15,13 +15,26 @@ var strings = new[] {"a", "b", "c"};
 strings.Join(" "); // "a b c"
 ```
 
-### ConcatWithSpace 
+### ConcatWithSpace / JoinWithSpace
 
 Concatenate strings using space, triming away extra spaces
 
 ```cs
 "a".ConcatWithSpace("b", "c"); // "a b c"
 "a".ConcatWithSpace(" b ", " ", "c"); // "a b c"
+// it also works on enumerables
+new[]{"a", "b", "c"}.JoinWithSpace()
+```
+
+### ConcatWithComma / JoinWithComma 
+
+Concatenate strings using space, triming away extra spaces
+
+```cs
+"a".ConcatWithComma("b", "c"); // "a, b, c"
+"a".ConcatWithComma(" b ", " ", "c"); // "a, b, c"
+// it also works on enumerables
+new[]{"a", "b", "c"}.JoinWithComma()
 ```
 
 ### ToNullIfEmpty
@@ -139,6 +152,28 @@ Returns only the entries with a distinct key
 
 ```cs
 new []{new Foo("a"), new Foo("a"), new Foo("c")}.DistinctBy(f => f.Value); // "a", "c"
+```
+
+### Zip
+
+Zip together two enumerables and return a tuple of the entries
+
+```cs
+foreach(var (a, b) in listA.Zip(listB))
+{
+	// ...
+}
+```
+
+### Join
+
+Join together two enumerables using two key selectors and return a tuple of the entries
+
+```cs
+foreach(var (a, b) in listA.Join(listB, a => a.Id, b => b.Id))
+{
+	// ...
+}
 ```
 
 ## Empty
