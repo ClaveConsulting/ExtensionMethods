@@ -1,6 +1,6 @@
 # Clave.ExtensionMethods
 
-[![Nuget](https://img.shields.io/nuget/v/Clave.ExtensionMethods)][1] [![Nuget](https://img.shields.io/nuget/dt/Clave.ExtensionMethods)][1] ![Azure DevOps builds](https://img.shields.io/azure-devops/build/ClaveConsulting/a22b6747-eeda-469d-a66e-30f176be2bce/13)
+[![Nuget](https://img.shields.io/nuget/v/Clave.ExtensionMethods)][1] [![Nuget](https://img.shields.io/nuget/dt/Clave.ExtensionMethods)][1] [![Build Status](https://claveconsulting.visualstudio.com/Nugets/_apis/build/status/ClaveConsulting.ExtensionMethods?branchName=master)][2] [![Azure DevOps tests](https://img.shields.io/azure-devops/tests/ClaveConsulting/Nugets/13)][2]
 
 This is a collection of small and useful extension methods for C#. 
 
@@ -302,3 +302,4 @@ dictionary[DateTime.Now]; // "year 1" in 1019, "year 2" in 2020
 The MIT license
 
 [1]: https://www.nuget.org/packages/Clave.ExtensionMethods/
+[2]: https://claveconsulting.visualstudio.com/Nugets/_build/latest?definitionId=13
