@@ -1,5 +1,7 @@
 # Clave.ExtensionMethods
 
+[![Nuget](https://img.shields.io/nuget/v/Clave.ExtensionMethods)][1] [![Nuget](https://img.shields.io/nuget/dt/Clave.ExtensionMethods)][1] ![Azure DevOps builds](https://img.shields.io/azure-devops/build/ClaveConsulting/a22b6747-eeda-469d-a66e-30f176be2bce/13)
+
 This is a collection of small and useful extension methods for C#. 
 
 To use it just add `using Clave.ExtensionMethods;` at the top of the file
@@ -298,3 +300,5 @@ dictionary[DateTime.Now]; // "year 1" in 1019, "year 2" in 2020
 ## License
 
 The MIT license
+
+[1]: https://www.nuget.org/packages/Clave.ExtensionMethods/

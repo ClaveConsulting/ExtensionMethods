@@ -5,6 +5,7 @@
     <Version>0.0.1</Version>
     <DebugType>embedded</DebugType>
     <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -15,6 +16,7 @@
     <Authors>Clave Consulting</Authors>
     <Description>A collection of useful extension methods</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net46' ">
