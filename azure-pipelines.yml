@@ -49,8 +49,8 @@ steps:
       projects: '**/*.Tests.csproj'
       arguments: '--configuration $(buildConfiguration)'
 
-  - task: NuGetCommand@2
-    displayName: 'nuget pack $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet pack $(buildConfiguration)'
     inputs:
       command: pack
       packagesToPack: '**/*.csproj'
