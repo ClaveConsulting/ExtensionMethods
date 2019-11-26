@@ -70,9 +70,10 @@ namespace Clave.ExtensionMethods
             => int.TryParse(value, out var result) ? result : fallback;
 
         /// <summary>
-        /// Converts a string to a decimal, and returns the fallback value if the conversion fails
+        /// Converts a string to a decimal, and returns the fallback value if the conversion fails.
+        /// Uses the invariant culture for parsing
         /// </summary>
         public static decimal ToDecimal(this string value, decimal fallback = 0)
-            => decimal.TryParse(value, out var result) ? result : fallback;
+            => decimal.TryParse(value, NumberStyles.Number, NumberFormatInfo.InvariantInfo, out var result) ? result : fallback;
     }
 }
