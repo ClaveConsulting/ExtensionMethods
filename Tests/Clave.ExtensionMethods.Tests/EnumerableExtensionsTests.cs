@@ -131,7 +131,7 @@ namespace Clave.ExtensionMethods.Tests
                 [DateTime.Parse("2020-08-12")] = "year 2",
             };
 
-            dictionary[DateTime.Now].ShouldBe("year 1");
+            dictionary[DateTime.Parse("2019-06-13")].ShouldBe("year 1");
         }
 
         private string Map(string a, int b) => a + b;
