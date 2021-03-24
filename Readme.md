@@ -200,6 +200,18 @@ foreach(var (a, b) in listA.Join(listB, a => a.Id, b => b.Id))
 }
 ```
 
+## Func extensions
+
+### Pipe
+
+Call a function with the value. Very useful if you want to use optional chaining
+
+```cs
+valueThatMightBeNull?.Pipe(FuncThatNeedsValue);
+arg1.Pipe(Func2, arg2);
+arg1.Pipe(Func3, arg2, arg3);
+```
+
 ## Empty
 
 This is a useful way to get empty immutable objects. Since they are immutable the same empty instance can be reused every time.
