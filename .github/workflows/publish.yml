@@ -1,0 +1,53 @@
+name: Publish
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Conventional Changelog Action
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.github_token }}
+          skip-version-file: true
+          output-file: false
+          skip-on-empty: false
+          git-push: false
+          skip-commit: true
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        env:
+          VERSION: ${{ steps.changelog.outputs.version }}
+        run: dotnet build --no-restore --configuration release -p:Version=${{ env.VERSION }}
+
+      - name: Test
+        run: dotnet test --no-build --configuration release
+
+      - name: Pack
+        env:
+          VERSION: ${{ steps.changelog.outputs.version }}
+        run: dotnet pack --no-build --include-symbols --configuration release -p:PackageVersion=${{ env.VERSION }} --output ./nugets
+
+      - name: Push
+        run: dotnet nuget push "**/*.nupkg" --api-key ${{ secrets.NUGET }} --source https://api.nuget.org/v3/index.json --skip-duplicate
+
+      - name: Tag
+        env:
+          VERSION: ${{ steps.changelog.outputs.version }}
+        run: |
+          git push origin "v${{ env.VERSION }}"
