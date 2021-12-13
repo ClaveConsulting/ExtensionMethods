@@ -106,11 +106,13 @@ namespace Clave.ExtensionMethods
         public static IReadOnlyList<T> ToReadOnlyList<T>(this IEnumerable<T> source)
             => source is IReadOnlyList<T> list ? list : source.ToList();
 
+#if !NET6_0
         /// <summary>
         /// Zips together two lists returning a tuple of their values
         /// </summary>
         public static IEnumerable<(T1, T2)> Zip<T1, T2>(this IEnumerable<T1> left, IEnumerable<T2> right)
             => left.Zip(right, ValueTuple.Create);
+#endif
 
         /// <summary>
         /// Joins together two lists returning a tuple of their values using the key selectors
@@ -118,12 +120,13 @@ namespace Clave.ExtensionMethods
         public static IEnumerable<(T1, T2)> Join<T1, T2, TKey>(this IEnumerable<T1> left, IEnumerable<T2> right, Func<T1, TKey> leftKey, Func<T2, TKey> rightKey)
             => left.Join(right, leftKey, rightKey, ValueTuple.Create);
 
+#if !NET6_0
         /// <summary>
         /// Returns only the items that have distinct values returned by the keySelector
         /// </summary>
         public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> source, Func<T, TKey> selector)
             => source.Distinct(Compare<T>.Using(selector));
-
+#endif
         /// <summary>
         /// Groups by a property in the key
         /// </summary>
